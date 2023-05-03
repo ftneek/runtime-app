@@ -39,6 +39,7 @@ public class SortingAppGUI {
             model.addRow(new Object[]{name});
         }
 
+        // Create button to generate recorded time per sorting
         Button generateButton = new Button("Generate & Sort");
 
         // Return values when click button "Generate & Sort"
