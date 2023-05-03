@@ -2,12 +2,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Random;
+import java.util.HashMap;
 
 public class SortingAppGUI {
 
     public static void main(String[] args) {
-        Random random = new Random();
+
+        // UI Design using swing and awt frameworks
         String[] algorithms = {"BubbleSort","SelectionSort","QuickSort","RadixSort","MergeSort","HeapSort"};
 
         JFrame frame = new JFrame("Runtime Analyzer");
@@ -15,7 +16,7 @@ public class SortingAppGUI {
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
         JLabel sizeLabel = new JLabel("Size of array:");
-//        sizeLabe
+
         TextField arraySizeTextField = new TextField();
         bottomPanel.add(sizeLabel, BorderLayout.WEST);
         bottomPanel.add(arraySizeTextField,BorderLayout.CENTER);
@@ -38,14 +39,24 @@ public class SortingAppGUI {
             model.addRow(new Object[]{name});
         }
 
+        // Create button to generate recorded time per sorting
         Button generateButton = new Button("Generate & Sort");
+
+        // Return values when click button "Generate & Sort"
         ActionListener listener = e -> {
             try {
                 int size = Integer.parseInt(arraySizeTextField.getText());
                 if (size < 1) {
                     throw new NumberFormatException();
                 }
-                int[] array = random.ints(size).toArray();
+                // Initialise an array with random integers & input size
+                int[] array = RandomArray.initialise(size);
+
+                // Return time recorded per sorting algorithm as a HashMap
+                HashMap<String, Long> timePerSorting = RecordTimesOfSorts.returnTimesRecorded(array);
+                // Sort array ( can use any algorithm )
+                HeapSort.sort(array);
+                // Display sorted array of integers
                 StringBuilder arrayString= new StringBuilder();
                 for (Object element: array) {
                     arrayString.append(element.toString()).append(" ");
@@ -55,11 +66,14 @@ public class SortingAppGUI {
                 for (int i = model.getRowCount() -1; i >-1 ; i--) {
                     model.removeRow(i);
                 }
+
+                // Add time recorded per sorting to the table
                 for (String name: algorithms) {
-                    model.addRow(new Object[]{name, random.nextInt(213,2000)});
+                    model.addRow(new Object[]{name, timePerSorting.get(name)});
                 }
+                sizeLabel.setText("Sorting Array: ");
             } catch (NumberFormatException ex) {
-                arraySizeTextField.setText("Integers only");
+                sizeLabel.setText("Please input size as integer: ");
             }
 
         };
