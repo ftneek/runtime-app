@@ -54,14 +54,6 @@ public class SortingAppGUI {
 
                 // Return time recorded per sorting algorithm as a HashMap
                 HashMap<String, Long> timePerSorting = RecordTimesOfSorts.returnTimesRecorded(array);
-                // Sort array ( can use any algorithm )
-                HeapSort.sort(array);
-                // Display sorted array of integers
-                StringBuilder arrayString= new StringBuilder();
-                for (Object element: array) {
-                    arrayString.append(element.toString()).append(" ");
-                }
-                arraySizeTextField.setText(arrayString.toString());
 
                 for (int i = model.getRowCount() -1; i >-1 ; i--) {
                     model.removeRow(i);
@@ -79,7 +71,7 @@ public class SortingAppGUI {
         };
 
         generateButton.addActionListener(listener);
-        frame.add(generateButton,BorderLayout.WEST);
+        bottomPanel.add(generateButton,BorderLayout.EAST);
 
         frame.pack();
         frame.setVisible(true);
