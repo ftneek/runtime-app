@@ -13,9 +13,13 @@ public class SortingAppGUI {
         JFrame frame = new JFrame("Runtime Analyzer");
         frame.setLayout(new BorderLayout());
 
-
-        TextField arraySizeTextField = new TextField("Size of array (n): ");
-        frame.add(arraySizeTextField,BorderLayout.SOUTH);
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        TextField sizeLabel = new TextField("Size of array:");
+//        sizeLabe
+        TextField arraySizeTextField = new TextField();
+        bottomPanel.add(sizeLabel, BorderLayout.WEST);
+        bottomPanel.add(arraySizeTextField,BorderLayout.CENTER);
+        frame.add(bottomPanel,BorderLayout.SOUTH);
 
         DefaultTableModel model = new DefaultTableModel(new Object[] {"Algorithm", "Runtime (ms)"},0) {
             @Override
@@ -55,7 +59,7 @@ public class SortingAppGUI {
                     model.addRow(new Object[]{name, random.nextInt(213,2000)});
                 }
             } catch (NumberFormatException ex) {
-                arraySizeTextField.setText("Size of array: ");
+                arraySizeTextField.setText("Integers only");
             }
 
         };
