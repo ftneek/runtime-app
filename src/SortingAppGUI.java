@@ -14,7 +14,7 @@ public class SortingAppGUI {
         frame.setLayout(new BorderLayout());
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
-        TextField sizeLabel = new TextField("Size of array:");
+        JLabel sizeLabel = new JLabel("Size of array:");
 //        sizeLabe
         TextField arraySizeTextField = new TextField();
         bottomPanel.add(sizeLabel, BorderLayout.WEST);
