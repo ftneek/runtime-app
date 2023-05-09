@@ -10,19 +10,16 @@ public class SortingAppGUI {
 
         // UI Design using swing and awt frameworks
         String[] algorithms = {"BubbleSort","SelectionSort","QuickSort","RadixSort","MergeSort","HeapSort"};
+        int[] N = {5,50,500,5000,50000};
 
         JFrame frame = new JFrame("Runtime Analyzer");
         frame.setLayout(new BorderLayout());
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
-        JLabel sizeLabel = new JLabel("Size of array:");
 
-        TextField arraySizeTextField = new TextField();
-        bottomPanel.add(sizeLabel, BorderLayout.WEST);
-        bottomPanel.add(arraySizeTextField,BorderLayout.CENTER);
         frame.add(bottomPanel,BorderLayout.SOUTH);
 
-        DefaultTableModel model = new DefaultTableModel(new Object[] {"Algorithm", "Runtime (ms)"},0) {
+        DefaultTableModel model = new DefaultTableModel(new Object[] {"Algorithm (Runtime (ms))", "N = 5", "N = 50", "N = 500", "N = 5000", "N = 50000"},0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -40,34 +37,27 @@ public class SortingAppGUI {
         }
 
         // Create button to generate recorded time per sorting
-        Button generateButton = new Button("Generate & Sort");
+        Button generateButton = new Button("Sort");
 
-        // Return values when click button "Generate & Sort"
+
+        // Return values when click button "Sort"
         ActionListener listener = e -> {
-            try {
-                int size = Integer.parseInt(arraySizeTextField.getText());
-                if (size < 1) {
-                    throw new NumberFormatException();
-                }
-                // Initialise an array with random integers & input size
-                int[] array = RandomArray.initialise(size);
+            // Initialise an array with random integers & input size
+            int size = N[4];
 
-                // Return time recorded per sorting algorithm as a HashMap
-                HashMap<String, Long> timePerSorting = RecordTimesOfSorts.returnTimesRecorded(array);
+            int[] array = RandomArray.initialise(size);
 
-                for (int i = model.getRowCount() -1; i >-1 ; i--) {
-                    model.removeRow(i);
-                }
+            // Return time recorded per sorting algorithm as a HashMap
+            HashMap<String, Long> timePerSorting = RecordTimesOfSorts.returnTimesRecorded(array);
 
-                // Add time recorded per sorting to the table
-                for (String name: algorithms) {
-                    model.addRow(new Object[]{name, timePerSorting.get(name)});
-                }
-                sizeLabel.setText("Sorting Array: ");
-            } catch (NumberFormatException ex) {
-                sizeLabel.setText("Please input size as integer: ");
+            for (int i = model.getRowCount() -1; i >-1 ; i--) {
+                model.removeRow(i);
             }
 
+            // Add time recorded per sorting to the table
+            for (String name: algorithms) {
+                model.addRow(new Object[]{name, timePerSorting.get(name)});
+            }
         };
 
         generateButton.addActionListener(listener);
