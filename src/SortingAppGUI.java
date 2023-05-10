@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class SortingAppGUI {
+    
 
     public static void main(String[] args) {
 
@@ -17,6 +18,8 @@ public class SortingAppGUI {
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
         frame.add(bottomPanel,BorderLayout.SOUTH);
+
+        
 
         DefaultTableModel model = new DefaultTableModel(new Object[] {"Size\\Algorithms", "BubbleSort","SelectionSort","QuickSort","RadixSort","MergeSort","HeapSort"},0) {
             @Override
@@ -32,9 +35,7 @@ public class SortingAppGUI {
         JScrollPane scrollPane = new JScrollPane(table);
 
         frame.add(scrollPane,BorderLayout.CENTER);
-        for (int i = 1; i < 6; i++) {
-            model.addRow(new Object[]{"ArraySize" + i});
-        }
+        model.addRow(new Object[]{"Array Size"});
 
         // Create button to generate recorded time per sorting
         JButton generateButton = new JButton("Sort");
@@ -65,7 +66,7 @@ public class SortingAppGUI {
         generateButton.addActionListener(listener);
         bottomPanel.add(generateButton,BorderLayout.EAST);
 
-        ActionListener addListener = e -> model.addRow(new Object[]{"Arraysize"});
+        ActionListener addListener = e -> model.addRow(new Object[]{});
         JButton addRowButton = new JButton("Insert row");
         addRowButton.addActionListener(addListener);
         bottomPanel.add(addRowButton);
