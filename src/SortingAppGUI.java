@@ -41,7 +41,7 @@ public class SortingAppGUI {
 
         // Return values when click button "Sort"
         ActionListener listener = e -> {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < table.getRowCount(); i++) {
                 // Initialise an array with random integers & input size
                 try {
                     int size = Integer.parseInt(table.getValueAt(i, 0).toString());
@@ -64,6 +64,13 @@ public class SortingAppGUI {
 
         generateButton.addActionListener(listener);
         bottomPanel.add(generateButton,BorderLayout.EAST);
+
+        ActionListener addListener = e -> model.addRow(new Object[]{"Arraysize"});
+        JButton addRowButton = new JButton("Insert row");
+        addRowButton.addActionListener(addListener);
+        bottomPanel.add(addRowButton);
+
+
 
         frame.pack();
         frame.setVisible(true);
