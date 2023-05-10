@@ -66,7 +66,7 @@ public class SortingAppGUI {
         generateButton.addActionListener(listener);
         bottomPanel.add(generateButton,BorderLayout.EAST);
 
-        ActionListener addListener = e -> model.addRow(new Object[]{});
+        ActionListener addListener = e -> model.addRow(new Object[]{"Array Size"});
         JButton addRowButton = new JButton("Insert row");
         addRowButton.addActionListener(addListener);
         bottomPanel.add(addRowButton);
